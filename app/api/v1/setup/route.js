@@ -1,6 +1,6 @@
 import { kv } from '@/lib/kv';
-import { hashPassword } from '@/lib/auth/password';
-import { generateUserId, generateTeamId } from '@/lib/auth/tokens';
+import { hashPassword, verifyPassword } from '@/lib/auth/password';
+import { generateUserId, generateTeamId, generateSessionToken } from '@/lib/auth/tokens';
 
 export async function POST(request) {
   try {
@@ -18,8 +18,6 @@ export async function POST(request) {
     await kv.set(`team:${teamId}`, {
       teamId,
       name: 'Coral Care',
-      description: 'Shorewatch social intelligence team',
-      website: 'https://joincoralcare.com',
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
@@ -40,18 +38,27 @@ export async function POST(request) {
 
     await kv.set(`user:${email}`, user);
     await kv.set(`user:id:${userId}`, user);
-    await kv.hset(`team:members:${teamId}`, {
-      [userId]: JSON.stringify({
-        userId, email, name, role: 'team_lead',
-        permissions: ['read', 'write', 'approve', 'admin', 'invite'],
-        joinedAt: Date.now(),
-      }),
-    });
 
-    await kv.set('setup:completed', 'true');
+    const sessionToken = generateSessionToken();
+    const now = Date.now();
+    const session = {
+      sessionToken,
+      userId,
+      teamId,
+      email,
+      name,
+      role: 'team_lead',
+      permissions: ['read', 'write', 'approve', 'admin', 'invite'],
+      createdAt: now,
+      expiresAt: now + 30 * 24 * 60 * 60 * 1000,
+      lastAccessedAt: now,
+    };
+
+    await kv.set(`session:${sessionToken}`, session, { ex: 30 * 24 * 60 * 60 });
 
     return Response.json({
       success: true,
+      sessionToken,
       user: { id: userId, email, name, role: 'team_lead', teamId },
     }, { status: 201 });
   } catch (error) {
