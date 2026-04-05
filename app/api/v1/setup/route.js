@@ -4,14 +4,6 @@ import { generateUserId, generateTeamId } from '@/lib/auth/tokens';
 
 export async function POST(request) {
   try {
-    const setupDone = await kv.get('setup:completed');
-    if (setupDone) {
-      return Response.json(
-        { error: { code: 'SETUP_COMPLETE', message: 'Setup has already been completed.' } },
-        { status: 403 }
-      );
-    }
-
     const body = await request.json();
     const { email, password, name } = body;
 
@@ -23,14 +15,14 @@ export async function POST(request) {
     }
 
     const teamId = generateTeamId();
-    await kv.set(`team:${teamId}`, JSON.stringify({
+    await kv.set(`team:${teamId}`, {
       teamId,
       name: 'Coral Care',
       description: 'Shorewatch social intelligence team',
       website: 'https://joincoralcare.com',
       createdAt: Date.now(),
       updatedAt: Date.now(),
-    }));
+    });
 
     const userId = generateUserId();
     const passwordHash = await hashPassword(password);
@@ -46,13 +38,15 @@ export async function POST(request) {
       createdAt: Date.now(),
     };
 
-    await kv.set(`user:${email}`, JSON.stringify(user));
-    await kv.set(`user:id:${userId}`, JSON.stringify(user));
-    await kv.hset(`team:members:${teamId}`, userId, JSON.stringify({
-      userId, email, name, role: 'team_lead',
-      permissions: ['read', 'write', 'approve', 'admin', 'invite'],
-      joinedAt: Date.now(),
-    }));
+    await kv.set(`user:${email}`, user);
+    await kv.set(`user:id:${userId}`, user);
+    await kv.hset(`team:members:${teamId}`, {
+      [userId]: JSON.stringify({
+        userId, email, name, role: 'team_lead',
+        permissions: ['read', 'write', 'approve', 'admin', 'invite'],
+        joinedAt: Date.now(),
+      }),
+    });
 
     await kv.set('setup:completed', 'true');
 
@@ -66,5 +60,4 @@ export async function POST(request) {
       { status: 500 }
     );
   }
-} 
- 
+}
