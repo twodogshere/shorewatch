@@ -1,0 +1,1 @@
+pbpaste > app/api/v1/setup/route.js
