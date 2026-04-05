@@ -1,182 +1,182 @@
 .container {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  min-height: 100vh;
-  background-color: #f9fafb;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    background-color: #f9fafb;
 }
 
 .sidebar {
-  background-color: var(--color-deep-blue-sea);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-xl);
-  border-right: 1px solid #1f2937;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 280px;
-  overflow-y: auto;
+    background-color: var(--color-deep-blue-sea);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-xl);
+    border-right: 1px solid #1f2937;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    overflow-y: auto;
 }
 
 .sidebarHeader {
-  margin-bottom: var(--spacing-2xl);
-  padding-bottom: var(--spacing-lg);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: var(--spacing-2xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo {
-  font-family: var(--font-heading);
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin: 0;
-  color: white;
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+    color: white;
 }
 
 .channelTabs {
-  display: flex;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-xl);
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
 }
 
 .tab {
-  flex: 1;
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
-  border: none;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  font-size: 0.875rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .tab:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
 }
 
 .tab.active {
-  background-color: var(--color-jellyfish);
-  color: white;
+    background-color: var(--color-jellyfish);
+    color: white;
 }
 
 .nav {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
 }
 
 .navItem {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  border-radius: var(--radius-md);
-  transition: all 0.2s ease;
-  font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+    font-weight: 500;
 }
 
 .navItem:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
 }
 
 .navItem.active {
-  background-color: var(--color-jellyfish);
-  color: white;
+    background-color: var(--color-jellyfish);
+    color: white;
 }
 
 .navIcon {
-  font-size: 1.25rem;
-  flex-shrink: 0;
+    font-size: 1.25rem;
+    flex-shrink: 0;
 }
 
 .sidebarFooter {
-  padding-top: var(--spacing-lg);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logoutButton {
-  width: 100%;
-  padding: var(--spacing-md);
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    width: 100%;
+    padding: var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .logoutButton:hover {
-  background-color: var(--color-coral-reef);
-  border-color: var(--color-coral-reef);
+    background-color: var(--color-coral-reef);
+    border-color: var(--color-coral-reef);
 }
 
 .mainContent {
-  display: flex;
-  flex-direction: column;
-  margin-left: 280px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 
 .topBar {
-  background-color: white;
-  border-bottom: 1px solid #e5e7eb;
-  padding: var(--spacing-lg) var(--spacing-xl);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    background-color: white;
+    border-bottom: 1px solid #e5e7eb;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .channelLabel {
-  font-weight: 600;
-  color: var(--color-deep-blue-sea);
-  font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-deep-blue-sea);
+    font-size: 1rem;
 }
 
 .topBarActions {
-  display: flex;
-  gap: var(--spacing-lg);
-  align-items: center;
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
 }
 
 .contentArea {
-  flex: 1;
-  padding: var(--spacing-xl);
-  overflow-y: auto;
+    flex: 1;
+    padding: var(--spacing-xl);
+    overflow-y: auto;
 }
 
 @media (max-width: 1024px) {
-  .container {
-    grid-template-columns: 1fr;
-  }
+    .container {
+        grid-template-columns: 1fr;
+    }
 
-  .sidebar {
-    position: static;
-    width: auto;
-  }
+    .sidebar {
+        position: static;
+        width: auto;
+    }
 
-  .mainContent {
-    margin-left: 0;
-  }
+    .mainContent {
+        margin-left: 0;
+    }
 }
 
 @media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
+    .sidebar {
+        display: none;
+    }
 
-  .mainContent {
-    margin-left: 0;
-  }
+    .mainContent {
+        margin-left: 0;
+    }
 
-  .contentArea {
-    padding: var(--spacing-lg);
-  }
+    .contentArea {
+        padding: var(--spacing-lg);
+    }
 }
