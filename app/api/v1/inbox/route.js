@@ -1,5 +1,5 @@
 import { validateSession } from '@/lib/auth/session';
-import { listThreads } from '@/lib/models/thread';
+import { kv } from '@/lib/kv';
 
 export async function GET(request) {
   try {
@@ -15,45 +15,52 @@ export async function GET(request) {
     }
 
     const session = await validateSession(token);
+    const teamId = session.teamId;
 
-    // Parse query parameters
     const url = new URL(request.url);
-    const filter = url.searchParams.get('filter') || 'all'; // all, unread, flagged, needs_attention
-    const sort = url.searchParams.get('sort') || 'recent'; // recent, sentiment, priority
-    const channel = url.searchParams.get('channel') || 'both'; // parent, provider, both
+    const filter = url.searchParams.get('filter') || 'all';
     const limit = Math.min(parseInt(url.searchParams.get('limit') || '50'), 100);
     const offset = parseInt(url.searchParams.get('offset') || '0');
 
-    // Fetch threads with filters
-    const result = await listThreads(session.teamId, {
-      filter,
-      sort,
-      channel,
-      limit,
-      offset,
+    const sortKey = `thread:sort:parent:${teamId}:by_recent`;
+    const total = await kv.zcard(sortKey) || 0;
+
+    let threadIds = [];
+    if (limit > 0) {
+      threadIds = await kv.zrange(sortKey, offset, offset + limit - 1, { rev: true }) || [];
+    } else {
+      threadIds = await kv.zrange(sortKey, 0, -1, { rev: true }) || [];
+    }
+
+    const threads = [];
+    let unreadCount = 0;
+    let flaggedCount = 0;
+    let needsAttentionCount = 0;
+
+    for (const threadId of threadIds) {
+      const raw = await kv.get(`thread:${threadId}`);
+      if (!raw) continue;
+      const thread = typeof raw === 'string' ? JSON.parse(raw) : raw;
+
+      if (!thread.readBy || thread.readBy.length === 0) unreadCount++;
+      if (thread.flaggedReason) flaggedCount++;
+      if (thread.status === 'needs_attention') needsAttentionCount++;
+
+      if (filter === 'all' || filter === thread.status) {
+        threads.push(thread);
+      }
+    }
+
+    return Response.json({
+      threads: limit > 0 ? threads.slice(0, limit) : [],
+      pagination: { limit, offset, total, hasMore: offset + limit < total },
+      summary: { total, unread: unreadCount, flagged: flaggedCount, needsAttention: needsAttentionCount },
+      unreadCount,
+      flaggedCount,
+      needsAttention: needsAttentionCount,
+      avgResponseTime: 0,
+      sentiment: 0,
     });
-
-    // Build summary stats
-    const summary = {
-      total: result.total || 0,
-      unread: result.unread || 0,
-      flagged: result.flagged || 0,
-      needsAttention: result.needsAttention || 0,
-    };
-
-    return Response.json(
-      {
-        threads: result.threads || [],
-        pagination: {
-          limit,
-          offset,
-          total: result.total || 0,
-          hasMore: offset + limit < (result.total || 0),
-        },
-        summary,
-      },
-      { status: 200 }
-    );
   } catch (error) {
     return Response.json(
       { error: { code: 'SERVER_ERROR', message: error.message } },
