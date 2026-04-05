@@ -1,0 +1,125 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  background: linear-gradient(135deg, #030043 0%, #1a1a5c 100%);
+}
+
+.card {
+  width: 100%;
+  max-width: 450px;
+  background: white;
+  padding: var(--spacing-2xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-deep-blue-sea);
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.subtitle strong {
+  color: var(--color-jellyfish);
+  font-weight: 600;
+}
+
+.errorBanner {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  border-left: 4px solid #dc2626;
+  color: #991b1b;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  font-size: 0.875rem;
+}
+
+.form {
+  margin-bottom: var(--spacing-lg);
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-lg);
+}
+
+.formGroup label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-deep-blue-sea);
+  font-size: 0.95rem;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: var(--color-seaweed);
+  box-shadow: 0 0 0 3px rgba(0, 210, 211, 0.1);
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin-top: var(--spacing-sm);
+}
+
+.submitButton {
+  width: 100%;
+  padding: var(--spacing-md);
+  background-color: var(--color-jellyfish);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #e63859;
+  transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.footer {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: var(--color-ocean-breeze);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}

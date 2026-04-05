@@ -1,0 +1,44 @@
+.container {
+  margin-bottom: var(--spacing-lg);
+}
+
+.filterGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.pill {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.pill:hover {
+  border-color: var(--color-seaweed);
+  color: var(--color-seaweed);
+}
+
+.pill.active {
+  background-color: var(--color-seaweed);
+  border-color: var(--color-seaweed);
+  color: white;
+}
+
+@media (max-width: 640px) {
+  .filterGroup {
+    gap: var(--spacing-xs);
+  }
+
+  .pill {
+    font-size: 0.825rem;
+    padding: 0.375rem 0.75rem;
+  }
+}
