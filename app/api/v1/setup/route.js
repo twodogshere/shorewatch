@@ -1,7 +1,3 @@
-git add app/api/v1/setup/route.js
-git commit -m "Fix setup route with correct file contents"
-git push
-cat > app/api/v1/setup/route.js << 'ENDOFFILE'
 import { kv } from '@/lib/kv';
 import { hashPassword } from '@/lib/auth/password';
 import { generateUserId, generateTeamId } from '@/lib/auth/tokens';
